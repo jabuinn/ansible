@@ -1,0 +1,27 @@
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout client 30s
+    timeout server 30s
+    timeout connect 30s
+
+listen stats
+    bind {{ haproxy_stats_ip }}:{{ stats_port }}
+    stats enable
+    option httpclose
+    stats uri /
+    stats refresh 2s
+    stats show-legends
+
+frontend node
+    bind 0.0.0.0:{{ frontend_port }}
+    default_backend backend
+
+backend backend
+    balance roundrobin
+{% for host in groups['web'] %}
+    server {{ host }} {{ host }}:{{ backend_port }} check
+{% endfor %}

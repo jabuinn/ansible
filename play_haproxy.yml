@@ -1,0 +1,25 @@
+---
+- name: install haproxy
+  hosts: haproxy
+  tasks:
+    - name: install haproxy load balancer
+      tdnf:
+        pkg=haproxy
+        state=installed
+        update_cache=yes
+
+    - name: Pushes configuration
+      template:
+        src: files/haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+        mode: 0640
+        owner: root
+        group: root
+      notify:
+        - restart haproxy
+
+  handlers:
+    - name: restart haproxy
+      service:
+        name: haproxy
+        state: restarted

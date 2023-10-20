@@ -1,0 +1,54 @@
+---
+- name: install nginx
+  hosts: web
+  tasks:
+    - name: install nginx
+      tdnf:
+        name: nginx
+        state: present
+
+- name: configure nginx web-01
+  hosts: web01
+  tasks:
+    - name: copy index page
+      copy:
+        src: files/index-01.html
+        dest: "{{ html_path }}/index.html"
+        owner: root
+        group: root
+      notify: reload nginx
+
+    - name: enable service
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: reload nginx
+      systemd:
+        name: nginx
+        state: reloaded
+
+- name: configure nginx web02
+  hosts: web02
+  tasks:
+    - name: copy index page
+      copy:
+        src: files/index-02.html
+        dest: "{{ html_path }}/index.html"
+        owner: root
+        group: root
+      notify: reload nginx
+
+    - name: enable service
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: reload nginx
+      systemd:
+        name: nginx
+        state: reloaded
