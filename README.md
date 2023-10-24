@@ -32,7 +32,7 @@
 8. Выполните последовательно плейбуки (пароль root будет выведен при выполнении п.5):
    $ ansible-playbook -i inventory.txt -k play_web.yml
    $ ansible-playbook -i inventory.txt -k play_haproxy.yml
-   $ ansible-playbook -i inventory.txt -k play_zabbix_agent.yml
+   $ ansible-playbook -i inventory.txt -k play_zabbix-agent.yml
 9. Проверьте работоспособность Nginx, Haproxy и Zabbix по ссылкам, полученным в п.5.
 10. Добавьте в консоли Zabbix-сервера хосты для мониторинга.
 
