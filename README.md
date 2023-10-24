@@ -15,7 +15,7 @@
 Что нужно для запуска набора плейбуков:
 1. Получите Облачный ЦОД в VMware Cloud Director с объемом ресурсов не менее, чем:
    CPU = 8,
-   RAM = 8 ГБ,
+   RAM = 6 ГБ,
    HDD = 100 Гб,
    NSX-T edge = 1,
    IP (routed) = 1,
@@ -33,7 +33,7 @@
    $ ansible-playbook -i inventory.txt -k play_web.yml
    $ ansible-playbook -i inventory.txt -k play_haproxy.yml
    $ ansible-playbook -i inventory.txt -k play_zabbix_agent.yml
-9. Проверьте работоспособность Nginx, Haproxy и Zabbix по ссылкам, полученным в п.5
+9. Проверьте работоспособность Nginx, Haproxy и Zabbix по ссылкам, полученным в п.5.
 10. Добавьте в консоли Zabbix-сервера хосты для мониторинга.
 
 Что нужно сделать после успешного выполнения
