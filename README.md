@@ -1,5 +1,6 @@
 # ansible
-Плейбуки Ansible для создания двух веб-серверов Nginx и одного сервера Haproxy. 
+Плейбуки Ansible для создания двух веб-серверов Nginx и одного сервера Haproxy.
+Настраивает и запускает zabbix-agent в docker-контейнере.
 Подходит для самостоятельного изучения Ansible.
 
 Плейбуки протестированы на Photon OS GA 4.0 и в качестве целевых виртуальных машин используется тестовая среда, развертываемая с помощью Terraform-манифеста https://github.com/jabuinn/ansible-lab.
@@ -9,11 +10,12 @@
 2. Конфигурирует Nginx (копирует целевой файл index.html) и запускает Nginx.
 3. Устанавливает Haproxy на сервер node-haproxy.
 4. Конфигурирует Haproxy (использует шаблон Jinja с настроенным frontent/backend/stats) и запускает Haproxy.
+5. Запускает zabbix-agent в docker-контейнере на серверах node-vm-01/node-vm-02/node-haproxy. 
 
 Что нужно для запуска набора плейбуков:
 1. Получите Облачный ЦОД в VMware Cloud Director с объемом ресурсов не менее, чем:
-   CPU = 4,
-   RAM = 2 ГБ,
+   CPU = 8,
+   RAM = 8 ГБ,
    HDD = 100 Гб,
    NSX-T edge = 1,
    IP (routed) = 1,
@@ -30,7 +32,9 @@
 8. Выполните последовательно плейбуки (пароль root будет выведен при выполнении п.5):
    $ ansible-playbook -i inventory.txt -k play_web.yml
    $ ansible-playbook -i inventory.txt -k play_haproxy.yml
-9. Проверьте работоспособность Nginx и Haproxy по ссылкам, полученным в п.5
+   $ ansible-playbook -i inventory.txt -k play_zabbix_agent.yml
+9. Проверьте работоспособность Nginx, Haproxy и Zabbix по ссылкам, полученным в п.5
+10. Добавьте в консоли Zabbix-сервера хосты для мониторинга.
 
 Что нужно сделать после успешного выполнения
 1. Запустите удаление созданной инфраструктуры. Перейдите в каталог с манифестом Terraform и выполните команду:
