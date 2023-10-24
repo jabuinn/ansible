@@ -3,3 +3,4 @@ stats_port: 80
 backend_port: 80
 enable_stats_page: true
 haproxy_stats_ip: 172.16.101.2
+zabbix_server: 10.100.20.10
