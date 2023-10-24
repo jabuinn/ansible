@@ -1,0 +1,9 @@
+---
+- name: run zabbix agents
+  hosts: haproxy
+  tasks:
+    - name: run zabbix agent on haproxy vm
+      command:
+        "systemctl start docker"
+        "docker pull zabbix/zabbix-agent"
+        "docker run --name zabbix-agent --privileged -e ZBX_SERVER_HOST=10.100.20.10 -d -p 10050:10050 zabbix/zabbix-agent:latest"
